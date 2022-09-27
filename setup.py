@@ -1,5 +1,4 @@
-from pickle import LIST
-from setuptools import setup
+from setuptools import setup, find_packages
 
 ## All python datatypes are coming from typing library
 from typing import List
@@ -18,7 +17,7 @@ def get_requirements_list()->List[str]:
     Description-This function will return list of libraries mentioned in requirements.txt file 
     """
     with open(REQUIREMENT_FILE_NAME) as requirement_file:
-        return requirement_file.readlines()
+        return requirement_file.readlines().remove("-e .")
 
 
 
@@ -27,6 +26,6 @@ setup(
     version=PROJECT_VERSION,
     author=PROJECT_AUTHOR,
     description=DESCRIPTION,
-    packages=PACKAGES,
+    packages=find_packages(),
     install_requires=get_requirements_list()
 )
