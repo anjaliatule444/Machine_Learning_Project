@@ -99,3 +99,8 @@ Once setup file is created run
 ```
 python setup.py install (This will install all dependencies)
 ```
+
+Install Ipynb kernel
+```
+pip install ipykernel
+```
