@@ -17,7 +17,7 @@ class HousingException(Exception):
         _,_,exec_tb=error_detail.exc_info()
 
         ## error Line number
-        line_number=exec_tb.tb_frame.f_lineno
+        line_number=exec_tb.f_lineno
 
         ## error file name
         file_name=exec_tb.tb_frame.f_code.co_filename
