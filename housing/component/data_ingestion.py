@@ -95,23 +95,23 @@ class DataIngestion:
             logging.info(f"Splittind data into train test data sets")
             ## income category ratio will be same in train and test
             for train_index,test_index in split.split(housing_data_frame,housing_data_frame["income_cat"]):
-                strat_train_data=housing_data_frame.loc[train_index].drop(["income_cat"],axis=1)
-                strat_test_data=housing_data_frame.loc[test_index].drop(["income_cat"],axis=1)
+                strat_train_set=housing_data_frame.loc[train_index].drop(["income_cat"],axis=1)
+                strat_test_set=housing_data_frame.loc[test_index].drop(["income_cat"],axis=1)
             
             ## Create train and test artifacts
-            train_file_path=os.path.join(self.data_ingestion_config.ingested_train_dir,self.file_name)
-            test_file_path=os.path.join(self.data_ingestion_config.ingested_test_dir,self.file_name)
+            train_file_path=os.path.join(self.data_ingestion_config.ingested_train_dir,file_name)
+            test_file_path=os.path.join(self.data_ingestion_config.ingested_test_dir,file_name)
              
             ## Save the training data into training file
-            if strat_train_data is not None:
+            if strat_train_set is not None:
                 os.makedirs(self.data_ingestion_config.ingested_train_dir)
-                strat_train_data.to_csv(train_file_path,index=False)
+                strat_train_set.to_csv(train_file_path,index=False)
                 logging.info(f"Saved training dataset successfully at location :[{train_file_path}]")
             
             ## Save the testing data into testing file
-            if strat_test_data is not None:
+            if strat_test_set is not None:
                 os.makedirs(self.data_ingestion_config.ingested_test_dir)
-                strat_test_data.to_csv(test_file_path,index=False)
+                strat_test_set.to_csv(test_file_path,index=False)
                 logging.info(f"Saved test dataset successfully at location :[{test_file_path}]")
 
             ## initialize Data Ingestion Artifact Named Tuple
