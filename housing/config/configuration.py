@@ -25,6 +25,7 @@ class Configuration:
 
     def get_data_ingestion_config(self) ->DataIngestionConfig:
         try:
+            raise Exception("Testing Exception")
             artifact_dir=self.training_pipeline_config.artifact_dir ## Withing artifact Directory all folders will go.
             data_ingestion_artifact_dir=os.path.join(artifact_dir,DATA_INGESTION_ARTIFACT_DIR,self.time_stamp) ## This will be final path for all files of data ingestion
 
