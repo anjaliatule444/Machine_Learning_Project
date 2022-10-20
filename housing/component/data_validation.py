@@ -10,6 +10,7 @@ from evidently.model_profile import Profile
 from evidently.model_profile.sections import DataDriftProfileSection
 from evidently.dashboard import Dashboard
 from evidently.dashboard.tabs import DataDriftTab
+from housing.util.util import read_yaml_file
 
 
 class DataValidation:
@@ -45,15 +46,96 @@ class DataValidation:
         except Exception as e:
             raise HousingException(e,sys) from e
 
+    def validate_number_of_columns(self,schema_file_path,train_file_path,test_file_path)->bool:
+        try:
+            schema_info=read_yaml_file(schema_file_path)
+            train_df=pd.read_csv(train_file_path)
+            test_df=pd.read_csv(test_file_path)
+
+            self.status=False
+
+            no_of_cols_in_schema=len(schema_info["columns"])
+            no_of_cols_in_train_df=len(train_df.columns)
+            no_of_cols_in_test_df=len(test_df.columns)
+
+            logging.info(f"Schema columns=[{no_of_cols_in_schema}] -- Train columns=[{no_of_cols_in_train_df}] --Test columns=[{no_of_cols_in_test_df}]")
+
+            if(no_of_cols_in_schema==no_of_cols_in_train_df and no_of_cols_in_train_df==no_of_cols_in_test_df):
+                self.status=True
+
+            logging.info(f"Validate Number of Columns:[{self.status}]")
+            return self.status
+        except Exception as e:
+            raise HousingException(e,sys) from e
+
+    def check_domain_values_of_categorical_columns(self,schema_file_path,train_file_path,test_file_path):
+        try:
+            schema_info=read_yaml_file(schema_file_path)
+            train_df=pd.read_csv(train_file_path)
+            test_df=pd.read_csv(test_file_path)
+
+            self.status=False
+
+            unique_in_schema=len(schema_info["domain_value"]["ocean_proximity"])
+            unique_in_train=len(train_df["ocean_proximity"].unique())
+            unique_in_test=len(test_df["ocean_proximity"].unique())
+
+            logging.info(f"Schema Unique=[{unique_in_schema}] -- Train Unique=[{unique_in_train}] --Test Unique=[{unique_in_test}]")
+
+            if(unique_in_schema==unique_in_train and unique_in_train==unique_in_test):
+                    self.status=True
+            
+            logging.info(f"Categorical column domain values:[{self.status}]")
+            return self.status
+            
+        except Exception as e:
+            raise HousingException(e,sys) from e
+
+    def validate_names_of_columns(self,schema_file_path,train_file_path,test_file_path):
+        try:
+            schema_info=read_yaml_file(schema_file_path)
+            train_df=pd.read_csv(train_file_path)
+            test_df=pd.read_csv(test_file_path)
+
+            self.status=False
+
+            commons_between_train_and_test=len(train_df.columns.intersection(test_df.columns))
+            commons_between_train_and_schema=len(train_df.columns.intersection(schema_info["columns"]))
+
+            logging.info(f"Commons Between Train and Test=[{commons_between_train_and_test}] \n Commons Between Train and Schema=[{commons_between_train_and_schema}] ")
+
+            if(commons_between_train_and_test==commons_between_train_and_schema):
+                    self.status=True
+            
+            logging.info(f"Columns Identical:[{self.status}]")
+            return self.status
+
+        except Exception as e:
+            raise HousingException(e,sys) from e
+    
     def validate_data_set_schema(self)->bool:
         try:
             validation_status=False
 
+            schema_file_path=self.data_validation_config.schema_file_path
+            train_file_path=self.data_ingestion_artifact.train_file_path
+            test_file_path=self.data_ingestion_artifact.test_file_path
+            logging.info(f"Got Schema File Path:[{schema_file_path}]\n Train File Path:[{train_file_path}] \n Test File Path:[{test_file_path}]")
+
             ## Validate training and testing data set
             #1 .Number of columns
-            #2. Check the values of ocean proximities(categorical variable)
-            #3. Check column names
+            status1=self.validate_number_of_columns(schema_file_path,train_file_path,test_file_path)
 
+            #2. Check the values of ocean proximities(categorical variable)
+            status2=self.check_domain_values_of_categorical_columns(schema_file_path,train_file_path,test_file_path)
+
+            #3. Check column names
+            status3=self.validate_names_of_columns(schema_file_path,train_file_path,test_file_path)
+
+            if(status1==True and status2==True and status3==True):
+                validation_status=True
+
+            logging.info(f"Validation Status:[{validation_status}]")
             return validation_status
         except Exception as e:
             raise HousingException(e,sys) from e
