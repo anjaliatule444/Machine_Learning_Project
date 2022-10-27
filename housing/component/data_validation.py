@@ -213,6 +213,7 @@ class DataValidation:
     def initiate_data_validation(self)-> DataValidationArtifact:
         try:
             ## Before starting data validation call function to check whether file exists
+            logging.info(f"Data Validation Started!.{'='*20}\n\n")
             self.is_train_test_file_exists()
             self.validate_data_set_schema()
             self.is_data_drift_found()
@@ -225,5 +226,10 @@ class DataValidation:
                 message="Data Validation Performed Successfully!!"
             )
             logging.info(f"Data Validation Artifact:[{data_validation_artifact}]")
+            return data_validation_artifact
         except Exception as e:
             raise HousingException(e,sys) from e
+
+    ## Destructor
+    def __del__(self):
+        logging.info(f"Data Validation log Completed!.{'='*20}\n\n")
