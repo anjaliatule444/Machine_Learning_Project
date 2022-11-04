@@ -49,3 +49,25 @@ NUMERICAL_COLUMN_KEY="numerical_columns"
 CATEGORICAL_COLUMN_KEY = "categorical_columns"
 TARGET_COLUMN_KEY="target_column"
 
+## Model Trainer related variables
+MODEL_TRAINER_ARTIFACT_DIR_KEY="model_trainer"
+MODEL_TRAINER_CONFIG_KEY="model_trainer_config"
+MODEL_TRAINER_TRAINED_MODEL_DIR_KEY="trained_model_dir"
+MODEL_TRAINER_TRAINED_MODEL_FILE_NAME_KEY="model_file_name"
+MODEL_TRAINER_BASE_ACCURACY_KEY="base_accuracy"
+MODEL_TRAINER_MODEL_CONFIG_DIR_KEY="model_config_dir"
+MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY="model_config_file_name"
+
+## Model Evaluation Related Variables
+MODEL_EVALUATION_ARTIFACT_DIR_KEY="model_evaluation"
+MODEL_EVALUATION_CONFIG_KEY="model_evaluation_config"
+MODEL_EVALUATION_FILE_NAME_KEY="model_evaluation_file_name"
+
+BEST_MODEL_KEY="best_model"
+MODEL_PATH_KEY="model_path"
+HISTORY_KEY = "history"
+
+## Model Pusher Related Variables
+MODEL_PUSHER_CONFIG_KEY="model_pusher_config"
+MODEL_PUSHER_EXPORT_DIR_KEY="model_export_dir"
+
