@@ -8,7 +8,7 @@ from housing.component.data_transformation import DataTransformation
 def main():
     try:
         pipeline_obj=Pipeline()
-        pipeline_obj.run_pipeline()
+        pipeline_obj.start()
         #data_transformation_config=Configuration().get_data_transformation_config()
         #print(data_transformation_config)
         #file_path="E:\\Full stack data science-Python pratice\\Machine Learning\\Machine_Learning_Project\\housing\\artifact\\data_ingestion\\2022-10-22_13-08-18\\ingested_data\\train\\housing.csv"

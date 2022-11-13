@@ -1,6 +1,10 @@
 import os
 from datetime import datetime
 
+
+def get_current_time_stamp():
+    return f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}"
+
 ROOT_DIR=os.getcwd() ## Get current working directory
 CONFIG_DIR="config"  ## Get config Directory
 CONFIG_FILE_NAME="config.yaml"   ## Get Config File Name 
@@ -70,4 +74,8 @@ HISTORY_KEY = "history"
 ## Model Pusher Related Variables
 MODEL_PUSHER_CONFIG_KEY="model_pusher_config"
 MODEL_PUSHER_EXPORT_DIR_KEY="model_export_dir"
+
+## Experiment related variables
+EXPERIMENT_DIR_NAME="experiment"
+EXPERIMENT_FILE_NAME="experiment.csv"
 
