@@ -2,7 +2,7 @@ from flask import Flask, request
 import sys
 import pip
 from housing.util.util import read_yaml_file, write_yaml_file
-from housing.logger import logging
+from housing.logger import logging,get_log_dataframe
 from housing.exception import HousingException
 import os, sys
 import json

@@ -3,27 +3,24 @@ from datetime import datetime
 import os
 import pandas as pd
 
-## Folder for saving logs.
-LOG_DIR="housing_logs"
+from housing.constant import get_current_time_stamp 
+LOG_DIR="logs"
 
-##GET CURRENT TIMESTAMP
-CURRENT_TIME_STAMP=f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+def get_log_file_name():
+    return f"log_{get_current_time_stamp()}.log"
 
-##Create log file
-LOG_FILE_NAME=f"log_{CURRENT_TIME_STAMP}.log"
+LOG_FILE_NAME=get_log_file_name()
 
-##Create log file directory
-## exist_ok will work if this folder already exist
 os.makedirs(LOG_DIR,exist_ok=True)
 
-##Create file path
-LOG_FILE_PATH=os.path.join(LOG_DIR,LOG_FILE_NAME)
+LOG_FILE_PATH = os.path.join(LOG_DIR,LOG_FILE_NAME)
 
-logging.basicConfig(
-    filename=LOG_FILE_PATH,
-    filemode='w',
-    format='[%(asctime)s] %(name)s - %(levelname)s - %(message)s ',
-    level=logging.INFO
+
+
+logging.basicConfig(filename=LOG_FILE_PATH,
+filemode="w",
+format='[%(asctime)s]^;%(levelname)s^;%(lineno)d^;%(filename)s^;%(funcName)s()^;%(message)s',
+level=logging.INFO
 )
 
 def get_log_dataframe(file_path):
