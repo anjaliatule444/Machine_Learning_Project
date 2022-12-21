@@ -102,7 +102,7 @@ docker stop <container_id>
 
 Once setup file is created run 
 ```
-python setup.py install (This will install all dependencies)
+python setup.py install (This will install all dependencies   )
 ```
 
 Install Ipynb kernel
