@@ -34,6 +34,7 @@ class Configuration:
 
             data_ingestion_config=DataIngestionConfig(
                 dataset_download_url=dataset_download_url,
+                #dataset_download_url='H:\Full stack data science-Python pratice\Machine Learning\Machine_Learning_Project\housing\artifact\data_ingestion\2022-10-19_19-04-43\tgz_data\housing.tgz',
                 tgz_download_dir=tgz_download_dir,
                 raw_data_dir=raw_data_dir,
                 ingested_train_dir=ingested_train_dir,

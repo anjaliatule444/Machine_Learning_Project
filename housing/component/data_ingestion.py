@@ -23,7 +23,8 @@ class DataIngestion:
 
             # exctracting downlaod url for data download
             downlaod_url=self.data_ingestion_config.dataset_download_url
-
+            #downlaod_url='H:\Full stack data science-Python pratice\Machine Learning\Machine_Learning_Project\housing\artifact\data_ingestion\2022-10-19_19-04-43\tgz_data\housing.tgz'
+            
             # Get the folder location to download file
             tgz_download_dir=self.data_ingestion_config.tgz_download_dir
 
@@ -40,7 +41,11 @@ class DataIngestion:
 
             ## download data from url at particular file location
             logging.info(f"Downloading file from :[{downlaod_url} at location :[{tgz_file_path}]")
-            urllib.request.urlretrieve(downlaod_url,tgz_file_path)
+            #urllib.request.urlretrieve(downlaod_url,tgz_file_path)
+            import shutil
+            src=downlaod_url
+            tgt=tgz_file_path
+            shutil.copy2(src,tgt)
             logging.info(f"Download completed for file :[{tgz_file_path}] successfully!")
 
             ## Return the file path where zip is stored
