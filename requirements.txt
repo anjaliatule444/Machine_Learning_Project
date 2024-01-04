@@ -1,6 +1,7 @@
 Flask
 gunicorn
-sklearn
+#sklearn
+scikit-learn
 numpy
 pandas
 PyYAML
