@@ -211,6 +211,5 @@ def render_log_dir(req_path):
     }
     return render_template('log_files.html', result=result)
 
-
 if __name__ == "__main__":
     app.run()
